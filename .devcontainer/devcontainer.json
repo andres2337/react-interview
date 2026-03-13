@@ -1,8 +1,11 @@
 {
 	"name": "Node.js & TypeScript",
 	"image": "mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm",
-	"postCreateCommand": [
-		"bash",
-		"../.devcontainer/postCreate.sh"
-	]
+	"runArgs": [
+		"--add-host=host.docker.internal:host-gateway"
+	],
+	"mounts": [
+		"source=${localWorkspaceFolderBasename}-node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume"
+	],
+	"postCreateCommand": "sudo chown -R node:node /workspaces/react-interview/node_modules && bash .devcontainer/postCreate.sh"
 }
