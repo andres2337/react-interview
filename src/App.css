@@ -598,3 +598,141 @@ button:focus-visible {
     justify-content: flex-start;
   }
 }
+
+.editable-trigger {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  text-align: left;
+  box-shadow: none;
+}
+
+.editable-trigger:hover {
+  transform: none;
+}
+
+.editable-trigger:disabled {
+  opacity: 1;
+}
+
+.editable-trigger-title {
+  font-size: 1.6rem;
+  line-height: 1.1;
+  font-weight: 700;
+  color: var(--color-ink);
+  overflow-wrap: anywhere;
+}
+
+.editable-trigger-item {
+  color: var(--color-text);
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.editable-trigger-item.is-complete {
+  color: var(--color-muted);
+  text-decoration: line-through;
+}
+
+.item-main > input[type='checkbox'] {
+  width: 18px;
+  min-width: 18px;
+  min-height: 18px;
+  accent-color: var(--color-primary);
+}
+
+.inline-edit-row {
+  width: 100%;
+}
+
+.inline-edit-row-list,
+.inline-edit-row-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.inline-edit-row-list input,
+.inline-edit-row-item input {
+  width: 100%;
+  min-width: 0;
+  min-height: 42px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-surface);
+  padding: 0 14px;
+  color: var(--color-ink);
+  box-shadow: inset 0 1px 0 rgba(17, 17, 17, 0.02);
+}
+
+.inline-edit-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.inline-action-button {
+  min-height: 38px;
+  padding: 0 14px;
+}
+
+@media (max-width: 960px) {
+  .inline-edit-row-list,
+  .inline-edit-row-item {
+    grid-template-columns: 1fr;
+  }
+
+  .inline-edit-actions {
+    justify-content: flex-start;
+  }
+}
+
+.page-shell {
+  padding-bottom: 132px;
+}
+
+.floating-actions {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid rgba(217, 224, 237, 0.94);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 16px 30px rgba(17, 17, 17, 0.12);
+  backdrop-filter: blur(10px);
+}
+
+.floating-button {
+  min-height: 44px;
+}
+
+.floating-button-muted {
+  background: var(--color-surface-muted);
+}
+
+@media (max-width: 960px) {
+  .page-shell {
+    padding-bottom: 172px;
+  }
+
+  .floating-actions {
+    right: 16px;
+    left: 16px;
+    bottom: 16px;
+    justify-content: stretch;
+    flex-wrap: wrap;
+  }
+
+  .floating-button {
+    flex: 1 1 0;
+  }
+}

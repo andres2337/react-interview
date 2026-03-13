@@ -1,4 +1,4 @@
-import { KeyboardEvent, useEffect, useState } from 'react'
+import { KeyboardEvent, useEffect, useRef, useState } from 'react'
 import './App.css'
 
 type SyncStatus = 'PendingCreate' | 'PendingUpdate' | 'PendingDelete' | 'Synced' | 'Failed'
@@ -211,6 +211,8 @@ function App() {
   const [editingItemId, setEditingItemId] = useState<number | null>(null)
   const [editingItemText, setEditingItemText] = useState('')
   const [savingTarget, setSavingTarget] = useState<string | null>(null)
+  const newListSectionRef = useRef<HTMLElement | null>(null)
+  const newListInputRef = useRef<HTMLInputElement | null>(null)
 
   const pendingCount = (syncStatus?.pendingListCount ?? 0) + (syncStatus?.pendingItemCount ?? 0)
   const failedCount = (syncStatus?.failedListCount ?? 0) + (syncStatus?.failedItemCount ?? 0)
@@ -246,7 +248,12 @@ function App() {
     return () => window.clearInterval(timer)
   }, [])
 
-
+  function jumpToNewList() {
+    newListSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    window.setTimeout(() => {
+      newListInputRef.current?.focus()
+    }, 280)
+  }
 
   function beginListEdit(todoList: TodoList) {
     setEditingItemId(null)
@@ -512,13 +519,14 @@ function App() {
         </div>
       </section>
 
-      <section className="composer-panel">
+      <section className="composer-panel" ref={newListSectionRef}>
         <form className="create-form" autoComplete="off" onSubmit={(event) => void createList(event)}>
           <label htmlFor="new-list">New list</label>
           <div className="input-row">
             <input
               id="new-list"
               name="new-list"
+              ref={newListInputRef}
               autoComplete="off"
               value={newListName}
               onChange={(event) => setNewListName(event.target.value)}
@@ -682,13 +690,20 @@ function App() {
           )
         })}
       </section>
+
+      <div className="floating-actions" aria-label="Quick actions">
+        <button className="primary-button floating-button" onClick={() => void runSync()} disabled={syncing}>
+          {syncing ? 'Syncing...' : 'Sync'}
+        </button>
+        <button className="ghost-button floating-button floating-button-muted" onClick={() => void loadData()}>
+          Refresh
+        </button>
+        <button className="success-button floating-button" onClick={jumpToNewList}>
+          New list
+        </button>
+      </div>
     </main>
   )
 }
 
 export default App
-
-
-
-
-
